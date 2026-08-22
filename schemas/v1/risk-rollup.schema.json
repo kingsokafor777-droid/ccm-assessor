@@ -1,0 +1,113 @@
+{
+  "$defs": {
+    "AssessmentStatus": {
+      "enum": [
+        "pass",
+        "fail",
+        "partial",
+        "not_assessed",
+        "error"
+      ],
+      "title": "AssessmentStatus",
+      "type": "string"
+    },
+    "CoverageState": {
+      "enum": [
+        "complete",
+        "partial",
+        "unavailable",
+        "error"
+      ],
+      "title": "CoverageState",
+      "type": "string"
+    },
+    "RiskLevel": {
+      "enum": [
+        "critical",
+        "high",
+        "medium",
+        "low",
+        "informational"
+      ],
+      "title": "RiskLevel",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "contributing_control_count": {
+      "minimum": 0,
+      "title": "Contributing Control Count",
+      "type": "integer"
+    },
+    "coverage_counts": {
+      "additionalProperties": {
+        "type": "integer"
+      },
+      "propertyNames": {
+        "$ref": "#/$defs/CoverageState"
+      },
+      "title": "Coverage Counts",
+      "type": "object"
+    },
+    "error_control_count": {
+      "minimum": 0,
+      "title": "Error Control Count",
+      "type": "integer"
+    },
+    "highest_contributing_severity": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/RiskLevel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "maximum_points": {
+      "minimum": 0,
+      "title": "Maximum Points",
+      "type": "integer"
+    },
+    "policy_id": {
+      "const": "ccm.assessor.risk/v1",
+      "default": "ccm.assessor.risk/v1",
+      "title": "Policy Id",
+      "type": "string"
+    },
+    "raw_points": {
+      "minimum": 0,
+      "title": "Raw Points",
+      "type": "integer"
+    },
+    "risk_percent": {
+      "maximum": 100,
+      "minimum": 0,
+      "title": "Risk Percent",
+      "type": "integer"
+    },
+    "status_counts": {
+      "additionalProperties": {
+        "type": "integer"
+      },
+      "propertyNames": {
+        "$ref": "#/$defs/AssessmentStatus"
+      },
+      "title": "Status Counts",
+      "type": "object"
+    }
+  },
+  "required": [
+    "raw_points",
+    "maximum_points",
+    "risk_percent",
+    "contributing_control_count",
+    "error_control_count",
+    "status_counts",
+    "coverage_counts"
+  ],
+  "title": "RiskRollup",
+  "type": "object"
+}

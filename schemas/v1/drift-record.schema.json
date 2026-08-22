@@ -1,0 +1,95 @@
+{
+  "$defs": {
+    "AssessmentStatus": {
+      "enum": [
+        "pass",
+        "fail",
+        "partial",
+        "not_assessed",
+        "error"
+      ],
+      "title": "AssessmentStatus",
+      "type": "string"
+    },
+    "DriftKind": {
+      "enum": [
+        "new",
+        "resolved",
+        "regressed",
+        "improved",
+        "unchanged",
+        "coverage_changed",
+        "not_comparable"
+      ],
+      "title": "DriftKind",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "control_id": {
+      "pattern": "^[a-z][a-z0-9_]{1,63}$",
+      "title": "Control Id",
+      "type": "string"
+    },
+    "control_version": {
+      "maxLength": 512,
+      "minLength": 1,
+      "title": "Control Version",
+      "type": "string"
+    },
+    "current_coverage_percent": {
+      "maximum": 100,
+      "minimum": 0,
+      "title": "Current Coverage Percent",
+      "type": "integer"
+    },
+    "current_status": {
+      "$ref": "#/$defs/AssessmentStatus"
+    },
+    "kind": {
+      "$ref": "#/$defs/DriftKind"
+    },
+    "previous_coverage_percent": {
+      "anyOf": [
+        {
+          "maximum": 100,
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Previous Coverage Percent"
+    },
+    "previous_status": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/AssessmentStatus"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "reason": {
+      "maxLength": 512,
+      "minLength": 1,
+      "title": "Reason",
+      "type": "string"
+    }
+  },
+  "required": [
+    "control_id",
+    "control_version",
+    "kind",
+    "current_status",
+    "current_coverage_percent",
+    "reason"
+  ],
+  "title": "DriftRecord",
+  "type": "object"
+}

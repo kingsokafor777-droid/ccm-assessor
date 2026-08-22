@@ -1,0 +1,72 @@
+{
+  "$defs": {
+    "CoverageState": {
+      "enum": [
+        "complete",
+        "partial",
+        "unavailable",
+        "error"
+      ],
+      "title": "CoverageState",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "control_id": {
+      "pattern": "^[a-z][a-z0-9_]{1,63}$",
+      "title": "Control Id",
+      "type": "string"
+    },
+    "control_version": {
+      "maxLength": 512,
+      "minLength": 1,
+      "title": "Control Version",
+      "type": "string"
+    },
+    "coverage_percent": {
+      "maximum": 100,
+      "minimum": 0,
+      "title": "Coverage Percent",
+      "type": "integer"
+    },
+    "evidence_hashes": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Evidence Hashes",
+      "type": "array"
+    },
+    "expected_population": {
+      "minimum": 1,
+      "title": "Expected Population",
+      "type": "integer"
+    },
+    "observed_population": {
+      "minimum": 0,
+      "title": "Observed Population",
+      "type": "integer"
+    },
+    "reason": {
+      "maxLength": 512,
+      "minLength": 1,
+      "title": "Reason",
+      "type": "string"
+    },
+    "state": {
+      "$ref": "#/$defs/CoverageState"
+    }
+  },
+  "required": [
+    "control_id",
+    "control_version",
+    "state",
+    "expected_population",
+    "observed_population",
+    "coverage_percent",
+    "evidence_hashes",
+    "reason"
+  ],
+  "title": "EvidenceCoverage",
+  "type": "object"
+}

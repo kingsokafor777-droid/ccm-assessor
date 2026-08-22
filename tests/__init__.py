@@ -1,0 +1,1 @@
+"""ccm-assessor test package."""

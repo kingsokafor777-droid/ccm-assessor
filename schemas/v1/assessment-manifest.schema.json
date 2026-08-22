@@ -1,0 +1,433 @@
+{
+  "$defs": {
+    "AssessmentStatus": {
+      "enum": [
+        "pass",
+        "fail",
+        "partial",
+        "not_assessed",
+        "error"
+      ],
+      "title": "AssessmentStatus",
+      "type": "string"
+    },
+    "ControlAssessment": {
+      "additionalProperties": false,
+      "properties": {
+        "assessed_at": {
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,6})?Z$",
+          "title": "Assessed At",
+          "type": "string"
+        },
+        "control_id": {
+          "pattern": "^[a-z][a-z0-9_]{1,63}$",
+          "title": "Control Id",
+          "type": "string"
+        },
+        "control_version": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Control Version",
+          "type": "string"
+        },
+        "coverage": {
+          "$ref": "#/$defs/EvidenceCoverage"
+        },
+        "evidence_hashes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence Hashes",
+          "type": "array"
+        },
+        "evidence_ids": {
+          "items": {
+            "pattern": "^[a-z][a-z0-9_]{1,63}$",
+            "type": "string"
+          },
+          "title": "Evidence Ids",
+          "type": "array"
+        },
+        "explanation_code": {
+          "pattern": "^[a-z][a-z0-9_]{1,63}$",
+          "title": "Explanation Code",
+          "type": "string"
+        },
+        "owner_team": {
+          "pattern": "^[a-z][a-z0-9_]{1,63}$",
+          "title": "Owner Team",
+          "type": "string"
+        },
+        "severity": {
+          "$ref": "#/$defs/RiskLevel"
+        },
+        "status": {
+          "$ref": "#/$defs/AssessmentStatus"
+        },
+        "summary": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Summary",
+          "type": "string"
+        }
+      },
+      "required": [
+        "control_id",
+        "control_version",
+        "status",
+        "severity",
+        "summary",
+        "explanation_code",
+        "owner_team",
+        "assessed_at",
+        "evidence_ids",
+        "evidence_hashes",
+        "coverage"
+      ],
+      "title": "ControlAssessment",
+      "type": "object"
+    },
+    "CoverageState": {
+      "enum": [
+        "complete",
+        "partial",
+        "unavailable",
+        "error"
+      ],
+      "title": "CoverageState",
+      "type": "string"
+    },
+    "DriftKind": {
+      "enum": [
+        "new",
+        "resolved",
+        "regressed",
+        "improved",
+        "unchanged",
+        "coverage_changed",
+        "not_comparable"
+      ],
+      "title": "DriftKind",
+      "type": "string"
+    },
+    "DriftRecord": {
+      "additionalProperties": false,
+      "properties": {
+        "control_id": {
+          "pattern": "^[a-z][a-z0-9_]{1,63}$",
+          "title": "Control Id",
+          "type": "string"
+        },
+        "control_version": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Control Version",
+          "type": "string"
+        },
+        "current_coverage_percent": {
+          "maximum": 100,
+          "minimum": 0,
+          "title": "Current Coverage Percent",
+          "type": "integer"
+        },
+        "current_status": {
+          "$ref": "#/$defs/AssessmentStatus"
+        },
+        "kind": {
+          "$ref": "#/$defs/DriftKind"
+        },
+        "previous_coverage_percent": {
+          "anyOf": [
+            {
+              "maximum": 100,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Previous Coverage Percent"
+        },
+        "previous_status": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/AssessmentStatus"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "reason": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "control_id",
+        "control_version",
+        "kind",
+        "current_status",
+        "current_coverage_percent",
+        "reason"
+      ],
+      "title": "DriftRecord",
+      "type": "object"
+    },
+    "EvidenceCoverage": {
+      "additionalProperties": false,
+      "properties": {
+        "control_id": {
+          "pattern": "^[a-z][a-z0-9_]{1,63}$",
+          "title": "Control Id",
+          "type": "string"
+        },
+        "control_version": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Control Version",
+          "type": "string"
+        },
+        "coverage_percent": {
+          "maximum": 100,
+          "minimum": 0,
+          "title": "Coverage Percent",
+          "type": "integer"
+        },
+        "evidence_hashes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence Hashes",
+          "type": "array"
+        },
+        "expected_population": {
+          "minimum": 1,
+          "title": "Expected Population",
+          "type": "integer"
+        },
+        "observed_population": {
+          "minimum": 0,
+          "title": "Observed Population",
+          "type": "integer"
+        },
+        "reason": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        },
+        "state": {
+          "$ref": "#/$defs/CoverageState"
+        }
+      },
+      "required": [
+        "control_id",
+        "control_version",
+        "state",
+        "expected_population",
+        "observed_population",
+        "coverage_percent",
+        "evidence_hashes",
+        "reason"
+      ],
+      "title": "EvidenceCoverage",
+      "type": "object"
+    },
+    "RiskLevel": {
+      "enum": [
+        "critical",
+        "high",
+        "medium",
+        "low",
+        "informational"
+      ],
+      "title": "RiskLevel",
+      "type": "string"
+    },
+    "RiskRollup": {
+      "additionalProperties": false,
+      "properties": {
+        "contributing_control_count": {
+          "minimum": 0,
+          "title": "Contributing Control Count",
+          "type": "integer"
+        },
+        "coverage_counts": {
+          "additionalProperties": {
+            "type": "integer"
+          },
+          "propertyNames": {
+            "$ref": "#/$defs/CoverageState"
+          },
+          "title": "Coverage Counts",
+          "type": "object"
+        },
+        "error_control_count": {
+          "minimum": 0,
+          "title": "Error Control Count",
+          "type": "integer"
+        },
+        "highest_contributing_severity": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/RiskLevel"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "maximum_points": {
+          "minimum": 0,
+          "title": "Maximum Points",
+          "type": "integer"
+        },
+        "policy_id": {
+          "const": "ccm.assessor.risk/v1",
+          "default": "ccm.assessor.risk/v1",
+          "title": "Policy Id",
+          "type": "string"
+        },
+        "raw_points": {
+          "minimum": 0,
+          "title": "Raw Points",
+          "type": "integer"
+        },
+        "risk_percent": {
+          "maximum": 100,
+          "minimum": 0,
+          "title": "Risk Percent",
+          "type": "integer"
+        },
+        "status_counts": {
+          "additionalProperties": {
+            "type": "integer"
+          },
+          "propertyNames": {
+            "$ref": "#/$defs/AssessmentStatus"
+          },
+          "title": "Status Counts",
+          "type": "object"
+        }
+      },
+      "required": [
+        "raw_points",
+        "maximum_points",
+        "risk_percent",
+        "contributing_control_count",
+        "error_control_count",
+        "status_counts",
+        "coverage_counts"
+      ],
+      "title": "RiskRollup",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "A sealed, reproducible aggregation over supplied current observations.",
+  "properties": {
+    "assessed_at": {
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,6})?Z$",
+      "title": "Assessed At",
+      "type": "string"
+    },
+    "assessment_profile_id": {
+      "pattern": "^[a-z][a-z0-9_]{1,63}$",
+      "title": "Assessment Profile Id",
+      "type": "string"
+    },
+    "assessment_profile_version": {
+      "maxLength": 512,
+      "minLength": 1,
+      "title": "Assessment Profile Version",
+      "type": "string"
+    },
+    "controls": {
+      "items": {
+        "$ref": "#/$defs/ControlAssessment"
+      },
+      "title": "Controls",
+      "type": "array"
+    },
+    "coverage": {
+      "items": {
+        "$ref": "#/$defs/EvidenceCoverage"
+      },
+      "title": "Coverage",
+      "type": "array"
+    },
+    "drift": {
+      "items": {
+        "$ref": "#/$defs/DriftRecord"
+      },
+      "title": "Drift",
+      "type": "array"
+    },
+    "input_hashes": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Input Hashes",
+      "type": "array"
+    },
+    "manifest_hash": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Manifest Hash"
+    },
+    "manifest_id": {
+      "anyOf": [
+        {
+          "pattern": "^[a-z][a-z0-9_]{1,63}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Manifest Id"
+    },
+    "risk_rollup": {
+      "$ref": "#/$defs/RiskRollup"
+    },
+    "schema_version": {
+      "const": "ccm.assessor/v1",
+      "default": "ccm.assessor/v1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "tenant_id": {
+      "pattern": "^[a-z][a-z0-9_]{1,63}$",
+      "title": "Tenant Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "tenant_id",
+    "assessment_profile_id",
+    "assessment_profile_version",
+    "assessed_at",
+    "controls",
+    "coverage",
+    "drift",
+    "risk_rollup",
+    "input_hashes"
+  ],
+  "title": "AssessmentManifest",
+  "type": "object"
+}

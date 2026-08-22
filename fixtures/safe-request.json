@@ -1,0 +1,137 @@
+{
+  "assessed_at": "2026-08-22T00:00:00Z",
+  "assessment_profile_id": "baseline_profile",
+  "assessment_profile_version": "1.0.0",
+  "baseline_manifest": {
+    "assessed_at": "2026-08-21T00:00:00Z",
+    "assessment_profile_id": "baseline_profile",
+    "assessment_profile_version": "1.0.0",
+    "controls": [
+      {
+        "assessed_at": "2026-08-22T00:00:00Z",
+        "control_id": "identity_mfa_coverage",
+        "control_version": "1.0.0",
+        "coverage": {
+          "control_id": "identity_mfa_coverage",
+          "control_version": "1.0.0",
+          "coverage_percent": 100,
+          "evidence_hashes": [
+            "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          ],
+          "expected_population": 100,
+          "observed_population": 100,
+          "reason": "expected population was observed with evidence references",
+          "state": "complete"
+        },
+        "evidence_hashes": [
+          "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        ],
+        "evidence_ids": [
+          "evidence_identity_mfa_coverage"
+        ],
+        "explanation_code": "synthetic_fixture",
+        "owner_team": "cloud_security",
+        "severity": "high",
+        "status": "fail",
+        "summary": "synthetic identity_mfa_coverage result"
+      }
+    ],
+    "coverage": [
+      {
+        "control_id": "identity_mfa_coverage",
+        "control_version": "1.0.0",
+        "coverage_percent": 100,
+        "evidence_hashes": [
+          "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        ],
+        "expected_population": 100,
+        "observed_population": 100,
+        "reason": "expected population was observed with evidence references",
+        "state": "complete"
+      }
+    ],
+    "drift": [
+      {
+        "control_id": "identity_mfa_coverage",
+        "control_version": "1.0.0",
+        "current_coverage_percent": 100,
+        "current_status": "fail",
+        "kind": "new",
+        "reason": "no baseline manifest was supplied"
+      }
+    ],
+    "input_hashes": [
+      "sha256:6f064e19f385cd9dbb56f36991124beb6b161525cc1d21f3b53bd4bcca45131a"
+    ],
+    "manifest_hash": "sha256:5d2cfaff66110a86c308b6572b022c98383220eb75993928d250803b083d575d",
+    "manifest_id": "assessment_289ac3b9c0663076aacb9630",
+    "risk_rollup": {
+      "contributing_control_count": 1,
+      "coverage_counts": {
+        "complete": 1,
+        "error": 0,
+        "partial": 0,
+        "unavailable": 0
+      },
+      "error_control_count": 0,
+      "highest_contributing_severity": "high",
+      "maximum_points": 75,
+      "policy_id": "ccm.assessor.risk/v1",
+      "raw_points": 75,
+      "risk_percent": 100,
+      "status_counts": {
+        "error": 0,
+        "fail": 1,
+        "not_assessed": 0,
+        "partial": 0,
+        "pass": 0
+      }
+    },
+    "schema_version": "ccm.assessor/v1",
+    "tenant_id": "demo_tenant"
+  },
+  "observations": [
+    {
+      "assessed_at": "2026-08-22T00:00:00Z",
+      "collector_state": "complete",
+      "control_id": "identity_mfa_coverage",
+      "control_version": "1.0.0",
+      "evidence_hashes": [
+        "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      ],
+      "evidence_ids": [
+        "evidence_identity_mfa_coverage"
+      ],
+      "expected_population": 100,
+      "explanation_code": "synthetic_fixture",
+      "observed_population": 100,
+      "owner_team": "cloud_security",
+      "severity": "high",
+      "status": "pass",
+      "summary": "synthetic identity_mfa_coverage result",
+      "tenant_id": "demo_tenant"
+    },
+    {
+      "assessed_at": "2026-08-22T00:00:00Z",
+      "collector_state": "partial",
+      "control_id": "storage_encryption_coverage",
+      "control_version": "1.0.0",
+      "evidence_hashes": [
+        "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      ],
+      "evidence_ids": [
+        "evidence_storage_encryption_coverage"
+      ],
+      "expected_population": 80,
+      "explanation_code": "synthetic_fixture",
+      "observed_population": 60,
+      "owner_team": "cloud_security",
+      "severity": "high",
+      "status": "partial",
+      "summary": "synthetic storage_encryption_coverage result",
+      "tenant_id": "demo_tenant"
+    }
+  ],
+  "schema_version": "ccm.assessor/v1",
+  "tenant_id": "demo_tenant"
+}
